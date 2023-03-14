@@ -10,25 +10,15 @@
 
 	// 	console.log(arduino)
 	// })
+	
+	const channel = supabase.channel('room1');
+	channel.subscribe((status) => {
+			if (status === 'SUBSCRIBED') {
+				// console.log(status)
+			}
+	})
 
 	async function getData() {
-		const channel = supabase.channel('room1');
-
-		supabase.channel('room1')
-				.on('broadcast', { event: 'feedback' }, async (payload) => {
-					console.log(payload);
-					if (payload.payload.feedback) {
-						await sendOnMsg();
-					} else {
-						await sendOffMsg();
-					}
-				})
-				.subscribe((status) => {
-					if (status === 'SUBSCRIBED') {
-						// your callback function will now be called with the messages broadcast by the other client
-					}
-				})
-
 		const { data: pieces, error } = await supabase.from("pieces").select("*");
 		if (error) throw new Error(error.message);
 
@@ -51,17 +41,27 @@
 		console.log(arduino_input);
 	}
 	async function sendOffMsg() {
-		serialHandler.write("0\n");
+		// serialHandler.write("0\n");
+		channel.send({
+			type: 'broadcast',
+			event: 'feedback',
+			payload: { feedback: false },
+		})
 	}
 	async function sendOnMsg() {
-		serialHandler.write("1\n");
+		// serialHandler.write("1\n");
+		channel.send({
+			type: 'broadcast',
+			event: 'feedback',
+			payload: { feedback: true },
+		})
 	}
 
 
 
 </script>
 
-<h1>The pieces</h1>
+<h1>ADMIN PAGE</h1>
 {#await getData()}
 	<p>Fetching data...</p>
 {:then data}
