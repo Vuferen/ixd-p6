@@ -17,10 +17,12 @@
 		supabase.channel('room1')
 				.on('broadcast', { event: 'feedback' }, async (payload) => {
 					console.log(payload);
-					if (payload.payload.feedback) {
-						await sendOnMsg();
-					} else {
+					if (!payload.payload.feedback) {
 						await sendOffMsg();
+					} else if (payload.payload.correct) {
+						await sendGreenMsg();
+					} else {
+						await sendRedMsg();
 					}
 				})
 				.subscribe((status) => {
@@ -56,12 +58,18 @@
 	async function sendOnMsg() {
 		serialHandler.write("1\n");
 	}
+	async function sendGreenMsg() {
+		serialHandler.write("2\n");
+	}
+	async function sendRedMsg() {
+		serialHandler.write("3\n");
+	}
 
 
 
 </script>
 
-<h1>The pieces</h1>
+<!-- <h1>The pieces</h1>
 {#await getData()}
 	<p>Fetching data...</p>
 {:then data}
@@ -71,9 +79,12 @@
 {:catch error}
 	<p>Something went wrong while fetching the data:</p>
 	<pre>{error}</pre>
-{/await}
+{/await} -->
 
-<button on:click={connectPort}>Connect to arduino</button>
+<button on:click={connectPort}>Connect to arduino</button><br><br>
+<button on:click={sendOffMsg}>Light: Off</button><br><br>
+<button on:click={sendGreenMsg}>Light: Green</button><br><br>
+<button on:click={sendRedMsg}>Light: Red</button>
 <!-- <button on:click={readPort}>Read arduino</button> -->
-<button on:click={sendOffMsg}>Off</button>
-<button on:click={sendOnMsg}>On</button>
+<!-- <button on:click={sendOffMsg}>Off</button>
+<button on:click={sendOnMsg}>On</button> -->

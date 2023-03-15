@@ -56,13 +56,29 @@
 			payload: { feedback: true },
 		})
 	}
+	async function sendGreenMsg() {
+		// serialHandler.write("1\n");
+		channel.send({
+			type: 'broadcast',
+			event: 'feedback',
+			payload: { feedback: true, correct: true },
+		})
+	}
+	async function sendRedMsg() {
+		// serialHandler.write("1\n");
+		channel.send({
+			type: 'broadcast',
+			event: 'feedback',
+			payload: { feedback: true, correct: false },
+		})
+	}
 
 
 
 </script>
 
 <h1>ADMIN PAGE</h1>
-{#await getData()}
+<!-- {#await getData()}
 	<p>Fetching data...</p>
 {:then data}
 	{#each data as piece}
@@ -71,9 +87,11 @@
 {:catch error}
 	<p>Something went wrong while fetching the data:</p>
 	<pre>{error}</pre>
-{/await}
+{/await} -->
 
-<button on:click={connectPort}>Connect to arduino</button>
+<!-- <button on:click={connectPort}>Connect to arduino</button> -->
 <!-- <button on:click={readPort}>Read arduino</button> -->
-<button on:click={sendOffMsg}>Off</button>
-<button on:click={sendOnMsg}>On</button>
+<button on:click={sendOffMsg}>Light: Off</button>
+<button on:click={sendGreenMsg}>Light: Green</button>
+<button on:click={sendRedMsg}>Light: Red</button>
+<!-- <button on:click={sendOnMsg}>On</button> -->
