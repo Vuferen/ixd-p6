@@ -1,5 +1,5 @@
 <script>
-	import supabase from "$lib/db";
+	// import supabase from "$lib/db";
 	import { browser } from "$app/environment";
 	import { serialHandler } from '$lib/serial-handler.ts';
 	// import onMount from "svelte";
@@ -11,26 +11,26 @@
 	// 	console.log(arduino)
 	// })
 	
-	const channel = supabase.channel('room1');
-	channel.subscribe((status) => {
-			if (status === 'SUBSCRIBED') {
-				// console.log(status)
-			}
-	})
+	// const channel = supabase.channel('room1');
+	// channel.subscribe((status) => {
+	// 		if (status === 'SUBSCRIBED') {
+	// 			// console.log(status)
+	// 		}
+	// })
 
 	async function getData() {
-		const { data: pieces, error } = await supabase.from("pieces").select("*");
-		if (error) throw new Error(error.message);
+		// const { data: pieces, error } = await supabase.from("pieces").select("*");
+		// if (error) throw new Error(error.message);
 
-		{
-			const { data: arduino, error } = await supabase.from("arduino").select("*");
-			if (error) throw new Error(error.message);
+		// {
+		// 	const { data: arduino, error } = await supabase.from("arduino").select("*");
+		// 	if (error) throw new Error(error.message);
 
-			let feedback = arduino.find(x => x.id === 1).feedback;
+		// 	let feedback = arduino.find(x => x.id === 1).feedback;
 
-		}
+		// }
 
-		return pieces;
+		// return pieces;
 	}
 	
 	async function connectPort() {

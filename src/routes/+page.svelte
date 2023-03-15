@@ -1,5 +1,5 @@
 <script>
-	import supabase from "$lib/db";
+	// import supabase from "$lib/db";
 	import { browser } from "$app/environment";
 	import { serialHandler } from '$lib/serial-handler.ts';
 	// import onMount from "svelte";
@@ -12,37 +12,37 @@
 	// })
 
 	async function getData() {
-		const channel = supabase.channel('room1');
+		// const channel = supabase.channel('room1');
 
-		supabase.channel('room1')
-				.on('broadcast', { event: 'feedback' }, async (payload) => {
-					console.log(payload);
-					if (!payload.payload.feedback) {
-						await sendOffMsg();
-					} else if (payload.payload.correct) {
-						await sendGreenMsg();
-					} else {
-						await sendRedMsg();
-					}
-				})
-				.subscribe((status) => {
-					if (status === 'SUBSCRIBED') {
-						// your callback function will now be called with the messages broadcast by the other client
-					}
-				})
+		// supabase.channel('room1')
+		// 		.on('broadcast', { event: 'feedback' }, async (payload) => {
+		// 			console.log(payload);
+		// 			if (!payload.payload.feedback) {
+		// 				await sendOffMsg();
+		// 			} else if (payload.payload.correct) {
+		// 				await sendGreenMsg();
+		// 			} else {
+		// 				await sendRedMsg();
+		// 			}
+		// 		})
+		// 		.subscribe((status) => {
+		// 			if (status === 'SUBSCRIBED') {
+		// 				// your callback function will now be called with the messages broadcast by the other client
+		// 			}
+		// 		})
 
-		const { data: pieces, error } = await supabase.from("pieces").select("*");
-		if (error) throw new Error(error.message);
+		// const { data: pieces, error } = await supabase.from("pieces").select("*");
+		// if (error) throw new Error(error.message);
 
-		{
-			const { data: arduino, error } = await supabase.from("arduino").select("*");
-			if (error) throw new Error(error.message);
+		// {
+		// 	const { data: arduino, error } = await supabase.from("arduino").select("*");
+		// 	if (error) throw new Error(error.message);
 
-			let feedback = arduino.find(x => x.id === 1).feedback;
+		// 	let feedback = arduino.find(x => x.id === 1).feedback;
 
-		}
+		// }
 
-		return pieces;
+		// return pieces;
 	}
 	
 	async function connectPort() {
