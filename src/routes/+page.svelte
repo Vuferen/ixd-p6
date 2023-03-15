@@ -64,6 +64,9 @@
 	async function sendRedMsg() {
 		serialHandler.write("3\n");
 	}
+	async function sendRGBMsg(r,g,b) {
+		serialHandler.write(`4:${r},${g},${b}\n`);
+	}
 
 
 
