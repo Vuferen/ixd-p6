@@ -1,4 +1,6 @@
 <script>
+	// The landing page
+
 	// import supabase from "$lib/db";
 	import { browser } from "$app/environment";
 	import { serialHandler } from '$lib/serial-handler.ts';
