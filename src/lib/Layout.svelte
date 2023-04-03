@@ -1,12 +1,22 @@
 <script>
 	import Button from "$lib/Button.svelte";
+  	import Box from "$lib/Box.svelte";
 	export let title = "Velkommen";
+	export let useBoxTitle = false;
+	export let titleBoxColor = "blue1";
+	export let showBackButton = false;
 </script>
 
-<Button type="secondary" color="blue2">Tilbage</Button>
+{#if showBackButton}
+	<Button type="secondary" color="blue2">Tilbage</Button>
+{/if}
 
 <main>
-	<h1>{title}</h1>
+	{#if useBoxTitle}
+		<Box color={titleBoxColor}><h1 class="box-title">{title}</h1></Box>
+	{:else}
+		<h1>{title}</h1>
+	{/if}
 	<slot name="body"/>
 </main>
 <div class="bottom">
@@ -20,11 +30,18 @@
 <style>
 	main {
 		margin: 0 20%;
+		display: flex;
+		flex-direction: column;
+		gap: 30px;
 	}
 	h1 {
 		font-family: var(--font);
 		text-align: center;
 		font-size: 5rem;
+	}
+	.box-title {
+		font-weight: normal;
+		font-size: 3rem;
 	}
 	.bottom{
 		display: flex;

@@ -1,13 +1,13 @@
 <script>
 	// The login page for teachers
 
-	import Button from "../../../lib/Button.svelte";
-	import TextInput from "../../../lib/TextInput.svelte";
+	import Button from "$lib/Button.svelte";
+	import TextInput from "$lib/TextInput.svelte";
 	import "iconify-icon";
-	import Layout from "../../../lib/Layout.svelte";
+	import Layout from "$lib/Layout.svelte";
 </script>
 
-<Layout title="Lærer login">
+<Layout title="Lærer login" showBackButton=true>
 	<form slot="body" class="body">
 		<TextInput type="text">Navn</TextInput>
 		<TextInput type="password">Kodeord</TextInput>

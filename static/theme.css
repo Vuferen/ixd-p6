@@ -22,4 +22,5 @@ body {
 	min-height: 100vh;
 	/* padding: 1px; */
 	box-sizing: content-box;
+	font-family: var(--font);
 }
