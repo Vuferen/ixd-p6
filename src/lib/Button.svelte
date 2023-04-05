@@ -6,6 +6,7 @@
 	export let iconOnLeft = false;
 	export let code = "";
 	export let onclick;
+	export let formaction = "";
 </script>
 
 {#if type == "classroom"}
@@ -16,7 +17,7 @@
 		{/if}
 	</button>
 {:else}
-	<button class="{type} {color}" on:click={onclick}>
+	<button class="{type} {color}" on:click={onclick} formaction={formaction}>
 		<div class="content">
 			{#if icon != "" && iconOnLeft}
 				<iconify-icon icon="{icon}" width="1.5em"></iconify-icon>

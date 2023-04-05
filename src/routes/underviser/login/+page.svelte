@@ -8,9 +8,9 @@
 </script>
 
 <Layout title="Lærer login" showBackButton=true>
-	<form slot="body" class="body">
-		<TextInput type="text">Navn</TextInput>
-		<TextInput type="password">Kodeord</TextInput>
+	<form slot="body" class="body" method="POST">
+		<TextInput type="email" name="email">Email</TextInput>
+		<TextInput type="password" name="password">Kodeord</TextInput>
 		<div class="center">
 			<Button type="primary" icon="mdi:chevron-right-circle">Log ind</Button>
 		</div>
@@ -20,7 +20,7 @@
 		slot="bottom"
 		type="primary"
 		color="green2"
-		icon="material-symbols:add-circle">Opret bruger</Button
+		icon="material-symbols:add-circle" formaction="?/underviser">Opret bruger</Button
 	>
 </Layout>
 

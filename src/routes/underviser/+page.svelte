@@ -4,9 +4,21 @@
 	import Button from "$lib/Button.svelte";
 	import "iconify-icon";
 	import Layout from "$lib/Layout.svelte";
+
+	/** @type {import('./$types').PageData} */  
+	export let data;
+	console.log(data);
+
+	let userEmail = "";
+
+	$: if (data.session) {
+		userEmail = data.session.user.email;
+	}
+
+
 </script>
 
-<Layout title="Klasseliste">
+<Layout title="Klasseliste ({userEmail})">
 	<div slot="body" class="body">
 		<Button type="classroom" code="123">4. A</Button>
 		<Button type="classroom">4. B</Button>
