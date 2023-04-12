@@ -5,10 +5,22 @@
 	export let useBoxTitle = false;
 	export let titleBoxColor = "blue1";
 	export let showBackButton = false;
+	export let showLogOutButton = false;
+	export let data;
+
+	async function logout(data) {
+		await data.supabase.auth.signOut();
+		//throw redirect(303, '/');
+	}
+
 </script>
 
 {#if showBackButton}
 	<Button type="secondary" color="blue2">Tilbage</Button>
+{/if}
+
+{#if showLogOutButton && data.session}
+	<Button type="secondary" color="blue2" onclick={() => logout(data)}>Log ud</Button>
 {/if}
 
 <main>

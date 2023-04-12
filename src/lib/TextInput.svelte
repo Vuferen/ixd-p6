@@ -12,6 +12,8 @@
 		<input type="text" name={name} bind:value>
 	{:else if type == "password"}
 		<input type="password" name={name} bind:value>
+	{:else if type == "email"}
+		<input type="email" name={name} bind:value>
 	{/if}
 </label>
 

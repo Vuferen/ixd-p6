@@ -7,7 +7,10 @@
 	import ClassroomBox from "$lib/ClassroomBox.svelte";
 
 	let classrooms = [];
+
 	export let data;
+
+	// initial load of all classrooms from +page.ts
 	$: ({ tableData } = data);
 	$: if (data.session) {
 		classrooms = tableData;
@@ -33,7 +36,7 @@
 
 </script>
 
-<Layout title="Klasseliste ({data.session.user.email})">
+<Layout title="Klasseliste ({data.session.user.email})" data={data} showLogOutButton={true}>
 	<div slot="body" class="body">
 		{#each classrooms as classroom}
 			<ClassroomBox bind:name={classroom.name} code={classroom.code} onupdate={updateClassroom(data.session, data.supabase, classroom)}/>
