@@ -4,17 +4,19 @@
 	export let type = "text";
 	export let name = "";
 	export let value = "";
+	export let error;
 </script>
 
 <label for={name}>
 	<slot/>
 	{#if type == "text"}
-		<input type="text" name={name} bind:value>
+		<input type="text" name={name} bind:value {...$$restProps}>
 	{:else if type == "password"}
-		<input type="password" name={name} bind:value>
+		<input type="password" name={name} bind:value {...$$restProps}>
 	{:else if type == "email"}
-		<input type="email" name={name} bind:value>
+		<input type="email" name={name} bind:value {...$$restProps}>
 	{/if}
+	{#if error}<span class="error">{error}</span>{/if}
 </label>
 
 <style>
@@ -33,5 +35,9 @@
 	label {
 		font-family: var(--font);
 		font-size: 2.5rem;
+	}
+	.error{
+		font-weight: bold;
+		font-size: 1.2rem;
 	}
 </style>

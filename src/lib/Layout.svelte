@@ -20,7 +20,7 @@
 {/if}
 
 {#if showLogOutButton && data.session}
-	<Button type="secondary" color="blue2" onclick={() => logout(data)}>Log ud</Button>
+	<Button type="secondary" color="blue2" onclick={() => logout(data)} href="">Log ud</Button>
 {/if}
 
 <main>

@@ -1,22 +1,28 @@
 <script>
 	import { goto } from '$app/navigation';
-
-	function routeToPage() {
-		goto(`/${href}`, { navigationReplaceState }) 
-	}
 	// Skal have en version med og uden icon
 	export let type = "primary";
 	export let color = "green1";
 	export let icon = "";
 	export let iconOnLeft = false;
-	export let onclick = routeToPage;
+	export let onclick = null;
 	export let formaction = "";
-	export let href = "";
+	export let href = null;
 	export let navigationReplaceState = false;
 	export let disable = false;
+
+	function handleClick() {
+		if (onclick != null) {
+			onclick();
+		}
+		if (href != null) {
+			goto(`/${href}`, { navigationReplaceState }) 
+		}
+	}
+
 </script>
 
-<button class="{type} {color}" on:click={onclick} formaction={formaction} disabled={disable}>
+<button class="{type} {color}" on:click={handleClick} formaction={formaction} disabled={disable}>
 	<div class="content">
 		{#if icon != "" && iconOnLeft}
 			<iconify-icon icon="{icon}" width="1.5em"></iconify-icon>

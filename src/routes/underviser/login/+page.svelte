@@ -20,7 +20,7 @@
 		slot="bottom"
 		type="primary"
 		color="green2"
-		icon="material-symbols:add-circle" formaction="?/underviser">Opret bruger</Button
+		icon="material-symbols:add-circle" href="underviser/registrer">Opret bruger</Button
 	>
 </Layout>
 
