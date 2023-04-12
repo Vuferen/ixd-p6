@@ -2,10 +2,11 @@
 	export let name = "";
 	export let code = "";
 	export let onclick;
+	export let onupdate;
 </script>
 
 <div class="classroom" onclick={onclick}>
-	<input type="text" bind:value={name}>
+	<input type="text" bind:value={name} on:submit={onupdate}>
 	<span>Kode: {code}</span>
 </div>
 
