@@ -1,4 +1,32 @@
 <script>
+	import Layout from "$lib/Layout.svelte";
+  	import TextInput from "$lib/TextInput.svelte";
+  	import Button from "$lib/Button.svelte";
+	import "iconify-icon";
+
+	// todo: validate that the code exists in the database (classroom.code)
+	let code = "";
+
+</script>
+
+<Layout title="Velkommen">
+	<div slot="body">
+		<TextInput bind:value={code}>Indtast klassens kode</TextInput>
+		<Button type="primary" color="green1" icon="mdi:chevron-right-circle" href="elev/{code}">Log ind</Button>
+	</div>
+	<Button slot="bottom" type="secondary" color="green2" >Log ind som lærer</Button>
+</Layout>
+
+<style>
+	div {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 2em;
+	}
+</style>
+
+<!-- <script>
 	// The landing page
 
 	// import supabase from "$lib/db";
@@ -86,10 +114,10 @@
 	<pre>{error}</pre>
 {/await} -->
 
-<button on:click={connectPort}>Connect to arduino</button><br><br>
+<!-- <button on:click={connectPort}>Connect to arduino</button><br><br>
 <button on:click={sendOffMsg}>Light: Off</button><br><br>
 <button on:click={sendGreenMsg}>Light: Green</button><br><br>
-<button on:click={sendRedMsg}>Light: Red</button>
+<button on:click={sendRedMsg}>Light: Red</button> -->
 <!-- <button on:click={readPort}>Read arduino</button> -->
 <!-- <button on:click={sendOffMsg}>Off</button>
 <button on:click={sendOnMsg}>On</button> -->

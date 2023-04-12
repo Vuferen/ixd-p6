@@ -1,13 +1,18 @@
 <script>
 	// Skal have en label med et input felt under
 	// Skal kunne sættes til enten tekst eller password
-	export let type = "";
+	export let type = "text";
 	export let name = "";
+	export let value = "";
 </script>
 
 <label for={name}>
 	<slot/>
-	<input type={type} name={name}>
+	{#if type == "text"}
+		<input type="text" name={name} bind:value>
+	{:else if type == "password"}
+		<input type="password" name={name} bind:value>
+	{/if}
 </label>
 
 <style>

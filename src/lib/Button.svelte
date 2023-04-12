@@ -1,12 +1,19 @@
 <script>
+	import { goto } from '$app/navigation';
+
+	function routeToPage() {
+		goto(`/${href}`, { navigationReplaceState }) 
+	}
 	// Skal have en version med og uden icon
 	export let type = "primary";
 	export let color = "green1";
 	export let icon = "";
 	export let iconOnLeft = false;
 	export let code = "";
-	export let onclick;
+	export let onclick = routeToPage;
 	export let formaction = "";
+	export let href = "";
+	export let navigationReplaceState = false;
 </script>
 
 {#if type == "classroom"}
