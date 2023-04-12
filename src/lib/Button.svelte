@@ -14,17 +14,18 @@
 	export let formaction = "";
 	export let href = "";
 	export let navigationReplaceState = false;
+	export let disable = false;
 </script>
 
 {#if type == "classroom"}
-	<button class="classroom" on:click={onclick}>
+	<button class="classroom" on:click={onclick} disabled={disable}>
 		<slot/>
 		{#if code != ""}
 			<span>Kode: {code}</span>
 		{/if}
 	</button>
 {:else}
-	<button class="{type} {color}" on:click={onclick} formaction={formaction}>
+	<button class="{type} {color}" on:click={onclick} formaction={formaction} disabled={disable}>
 		<div class="content">
 			{#if icon != "" && iconOnLeft}
 				<iconify-icon icon="{icon}" width="1.5em"></iconify-icon>
@@ -58,7 +59,7 @@
 	}
 	.classroom{
 		background-color: var(--green-1);
-		font-size: 3em;
+		font-size: 3rem;
 		text-align: left;
 		padding: 0.2em 0.4em;
 		height: 100px;
