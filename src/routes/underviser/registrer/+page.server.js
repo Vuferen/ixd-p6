@@ -33,7 +33,6 @@ export const actions = {
 		} = event;
 
 		const form = await superValidate(event, registerSchema);
-		console.log(form);
 
 		if (!form.valid) {
 			return fail(400, {
@@ -50,7 +49,6 @@ export const actions = {
 		});
 
 		if (error) {
-			console.log(error);
 			if (error instanceof AuthApiError && error.status === 400) {
 				return setError(form, "email", error.message);
 			}

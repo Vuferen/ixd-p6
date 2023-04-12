@@ -1,6 +1,7 @@
 <script>
 	import Button from "$lib/Button.svelte";
   	import Box from "$lib/Box.svelte";
+  	import { goto } from "$app/navigation";
 	export let title = "Velkommen";
 	export let useBoxTitle = false;
 	export let titleBoxColor = "blue1";
@@ -9,18 +10,18 @@
 	export let data;
 
 	async function logout(data) {
-		await data.supabase.auth.signOut();
-		//throw redirect(303, '/');
+		await data.supabase.auth.signOut(data.session);
+		window.location.href = "/";
 	}
 
 </script>
 
 {#if showBackButton}
-	<Button type="secondary" color="blue2">Tilbage</Button>
+	<Button type="secondary" color="blue2" onclick={() => history.back()}>Tilbage</Button>
 {/if}
 
 {#if showLogOutButton && data.session}
-	<Button type="secondary" color="blue2" onclick={() => logout(data)} href="">Log ud</Button>
+	<Button type="secondary" color="blue2" onclick={() => logout(data)}>Log ud</Button>
 {/if}
 
 <main>

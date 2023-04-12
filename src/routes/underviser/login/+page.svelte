@@ -18,7 +18,7 @@
 </script>
 
 <Layout title="Lærer login" showBackButton=true>
-	<form slot="body" class="body" method="POST">
+	<form slot="body" class="body" method="POST" use:enhance>
 		{#if $errors.server}<span class="server-error">{$errors.server}</span>{/if}
 		<TextInput type="email" name="email" bind:value={$form.email} {...$constraints.email} bind:error={$errors.email}>Email</TextInput>
 		<TextInput type="password" name="password" bind:value={$form.password} {...$constraints.password} bind:error={$errors.password}>Kodeord</TextInput>

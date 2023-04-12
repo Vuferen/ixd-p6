@@ -22,7 +22,6 @@ export const actions = {
 		} = event;
 
 		const form = await superValidate(event, loginSchema);
-		console.log(form);
 
 		if (!form.valid) {
 			return fail(400, {

@@ -8,6 +8,7 @@
 	export let data;
 
 	function teacherNavigation() {
+		console.log(data.session)
 		if (data.session) {
 			return "underviser";
 		} else {

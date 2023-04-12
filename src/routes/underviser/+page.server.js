@@ -2,6 +2,15 @@
 // import type { Actions } from './$types';
 // import { error, fail } from '@sveltejs/kit';
 
+import { redirect } from "@sveltejs/kit";
+
+export const load = async ({parent}) => {
+	const { session } = await parent();
+	if(!session) {
+		throw redirect(303, "/");
+	}
+}
+
 // export const actions = {
 // 	createClassroom: async ({ request, locals: { supabase, getSession } }) => {
 // 	  const session = await getSession();
