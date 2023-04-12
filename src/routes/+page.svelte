@@ -4,6 +4,17 @@
   	import Button from "$lib/Button.svelte";
 	import "iconify-icon";
 
+	/** @type {import('./$types').PageData} */  
+	export let data;
+
+	function teacherNavigation() {
+		if (data.session) {
+			return "underviser";
+		} else {
+			return "underviser/login"
+		}
+	}
+
 	// todo: validate that the code exists in the database (classroom.code)
 	let code = "";
 
@@ -14,7 +25,7 @@
 		<TextInput bind:value={code}>Indtast klassens kode</TextInput>
 		<Button type="primary" color="green1" icon="mdi:chevron-right-circle" href="elev/{code}">Log ind</Button>
 	</div>
-	<Button slot="bottom" type="secondary" color="green2" >Log ind som lærer</Button>
+	<Button slot="bottom" type="secondary" color="green2" href="{teacherNavigation()}">Log ind som lærer</Button>
 </Layout>
 
 <style>
