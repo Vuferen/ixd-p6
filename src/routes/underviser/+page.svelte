@@ -4,57 +4,37 @@
 	import Button from "$lib/Button.svelte";
 	import "iconify-icon";
 	import Layout from "$lib/Layout.svelte";
+	import ClassroomBox from "$lib/ClassroomBox.svelte";
 
-	/** @type {import('./$types').PageData} */  
+	let classrooms = [];
 	export let data;
-	console.log(data);
-
-	let userEmail = "";
-
+	$: ({ user, tableData } = data);
 	$: if (data.session) {
-		userEmail = data.session.user.email;
+		console.log(tableData);
+		console.log(user);
+		classrooms = tableData;
 	}
 
-	let classrooms = [{name: "4.B", code: "test"}];
-
-
-	// let isAddingNewClass = false;
-	// let newClassName = "";
 	function newClass() {
-		// isAddingNewClass = true;
-		classrooms = [...classrooms, {name: "Ny klasse", code: ""}];
+		if (data.session) {
+			classrooms = [...classrooms, { name: "Ny klasse", code: "" }];
+		}
 	}
-	function saveNewClass() {
-		// isAddingNewClass = false;
-		// if (newClassName != "") {
-		// 	classrooms = [...classrooms, {name: newClassName, code: ""}];
-		// }
-	}
-
-
 </script>
 
-<Layout title="Klasseliste ({userEmail})">
+<Layout title="Klasseliste ({user.email})">
 	<div slot="body" class="body">
 		{#each classrooms as classroom}
-			<Button type="classroom" code={classroom.code}><input type="text" name="new-class" bind:value={classroom.name}></Button>
+			<ClassroomBox bind:name={classroom.name} code={classroom.code} />
 		{/each}
-		<!-- {#if isAddingNewClass}
-			<Button type="classroom" code="" disable={true}><input type="text" name="new-class" bind:value={newClassName} onabort={saveNewClass} autofocus></Button>
-		{/if} -->
-		<!-- <Button type="classroom" code="123">4. A</Button>
-		<Button type="classroom">4. B</Button>
-		<Button type="classroom">4. C</Button>
-		<Button type="classroom">5. A</Button>
-		<Button type="classroom">5. B</Button>
-		<Button type="classroom">5. C</Button> -->
 	</div>
 
 	<Button
 		slot="bottom"
 		type="primary"
 		color="green2"
-		icon="material-symbols:add-circle" onclick={newClass}>Tilføj</Button
+		icon="material-symbols:add-circle"
+		onclick={newClass}>Tilføj</Button
 	>
 </Layout>
 
@@ -67,11 +47,5 @@
 	}
 	.center {
 		align-self: center;
-	}
-	input{
-		font-size: 3rem;
-		background: none;
-		border: none;
-		z-index: 3;
 	}
 </style>

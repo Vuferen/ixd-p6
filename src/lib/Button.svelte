@@ -9,7 +9,6 @@
 	export let color = "green1";
 	export let icon = "";
 	export let iconOnLeft = false;
-	export let code = "";
 	export let onclick = routeToPage;
 	export let formaction = "";
 	export let href = "";
@@ -17,26 +16,17 @@
 	export let disable = false;
 </script>
 
-{#if type == "classroom"}
-	<button class="classroom" on:click={onclick} disabled={disable}>
-		<slot/>
-		{#if code != ""}
-			<span>Kode: {code}</span>
+<button class="{type} {color}" on:click={onclick} formaction={formaction} disabled={disable}>
+	<div class="content">
+		{#if icon != "" && iconOnLeft}
+			<iconify-icon icon="{icon}" width="1.5em"></iconify-icon>
 		{/if}
-	</button>
-{:else}
-	<button class="{type} {color}" on:click={onclick} formaction={formaction} disabled={disable}>
-		<div class="content">
-			{#if icon != "" && iconOnLeft}
-				<iconify-icon icon="{icon}" width="1.5em"></iconify-icon>
-			{/if}
-			<slot/>
-			{#if icon != "" && !iconOnLeft}
-				<iconify-icon icon="{icon}" width="1.5em"></iconify-icon>
-			{/if}
-		</div>
-	</button>
-{/if}
+		<slot/>
+		{#if icon != "" && !iconOnLeft}
+			<iconify-icon icon="{icon}" width="1.5em"></iconify-icon>
+		{/if}
+	</div>
+</button>
 
 
 <style>
@@ -57,16 +47,6 @@
 		font-size: 2rem;
 		padding: 0.4em;
 	}
-	.classroom{
-		background-color: var(--green-1);
-		font-size: 3rem;
-		text-align: left;
-		padding: 0.2em 0.4em;
-		height: 100px;
-		display: flex;
-		flex-direction: column;
-		width: auto;
-	}
 	.green1{
 		background-color: var(--green-1);
 	}
@@ -85,8 +65,5 @@
 		/* justify-content: space-between; */
 		align-items: center;
 		gap: 0.5em;
-	}
-	span {
-		font-size: 1.8rem;
 	}
 </style>
