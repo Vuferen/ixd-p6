@@ -8,34 +8,49 @@
 
 	let classrooms = [];
 	export let data;
-	$: ({ user, tableData } = data);
+	$: ({ tableData } = data);
 	$: if (data.session) {
-		console.log(tableData);
-		console.log(user);
+		classrooms = tableData;
+	}
+	
+
+	async function newClassroom(session, supabase) {
+		const { data, error } = await supabase
+		.from('classrooms')
+		.insert([
+			{teacher: session.user.id, name: "Ny klasse"},
+		]);
+		const { data: tableData} = await supabase.from('classrooms').select('id, name, code');
 		classrooms = tableData;
 	}
 
-	function newClass() {
-		if (data.session) {
-			classrooms = [...classrooms, { name: "Ny klasse", code: "" }];
-		}
+	async function updateClassroom(session, supabase, classroom) {
+		const { data, error } = await supabase
+		.from('classrooms')
+		.update({name: classroom.name})
+		.eq('id', classroom.id);
 	}
+
 </script>
 
-<Layout title="Klasseliste ({user.email})">
+<Layout title="Klasseliste ({data.session.user.email})">
 	<div slot="body" class="body">
 		{#each classrooms as classroom}
 			<ClassroomBox bind:name={classroom.name} code={classroom.code} />
 		{/each}
 	</div>
 
-	<Button
+	<!-- <form slot="bottom" action="?/createClassroom" method="POST"> -->
+		<!-- <button slot="bottom" on:click={() => newClass(data.session, data.supabase)}>Test</button> -->
+		<Button
 		slot="bottom"
 		type="primary"
 		color="green2"
 		icon="material-symbols:add-circle"
-		onclick={newClass}>Tilføj</Button
+		onclick={() => newClassroom(data.session, data.supabase)}>Tilføj</Button
 	>
+	<!-- </form> -->
+	
 </Layout>
 
 <style>
