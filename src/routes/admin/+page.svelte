@@ -1,37 +1,7 @@
 <script>
-	// import supabase from "$lib/db";
 	import { browser } from "$app/environment";
 	import { serialHandler } from '$lib/serial-handler.ts';
-	// import onMount from "svelte";
-
-	// onMount(async () => { 
-	// 	const { data: arduino, error } = await supabase.from("arduino").select("*");
-	// 	if (error) throw new Error(error.message);
-
-	// 	console.log(arduino)
-	// })
-	
-	// const channel = supabase.channel('room1');
-	// channel.subscribe((status) => {
-	// 		if (status === 'SUBSCRIBED') {
-	// 			// console.log(status)
-	// 		}
-	// })
-
-	async function getData() {
-		// const { data: pieces, error } = await supabase.from("pieces").select("*");
-		// if (error) throw new Error(error.message);
-
-		// {
-		// 	const { data: arduino, error } = await supabase.from("arduino").select("*");
-		// 	if (error) throw new Error(error.message);
-
-		// 	let feedback = arduino.find(x => x.id === 1).feedback;
-
-		// }
-
-		// return pieces;
-	}
+	import DragList from "$lib/DragList.svelte";
 	
 	async function connectPort() {
 		await serialHandler.init();
@@ -72,6 +42,65 @@
 			payload: { feedback: true, correct: false },
 		})
 	}
+	
+
+	export let data;
+	$: if (data.supabase) {
+	}
+
+	async function getPieces() {
+		const { data: pieces} = await data.supabase.from('pieces').select('id, name, position');
+		pieces.forEach(element => {
+			if (element.position != null) {
+				placedPieces = [...placedPieces, element];
+			} else {
+				unplacedPieces = [...unplacedPieces, element];
+			}
+		});
+		placedPieces.sort(comparePosition);
+		// console.log(tableData);
+		// unplacedPieces = tableData;
+	}
+
+	function comparePosition(a, b) {
+		if (a.position < b.position) {
+			return -1;
+		}
+		if (a.position > b.position) {
+			return 1;
+		}
+		return 0;
+	}
+
+	getPieces();
+
+
+	let placedPieces = [];
+	let unplacedPieces = [];
+
+	async function update_db_positions(pieces) {
+		for (let i = 0; i < pieces.length; i++) {
+			const piece = pieces[i];
+			if (piece.position != i) {
+				const { error } = await data.supabase
+					.from('pieces')
+					.update({ position: i })
+					.eq('id', piece.id);
+			}
+		}
+	}
+
+	async function update_db_positions_to_null(pieces) {
+		pieces.forEach(async piece => {
+			if (piece.position != null) {
+				const { error } = await data.supabase
+				.from('pieces')
+				.update({ position: null })
+				.eq('id', piece.id);
+				piece.position = null;
+			}
+		});
+	}
 
 
 
@@ -95,3 +124,9 @@
 <button on:click={sendGreenMsg}>Light: Green</button>
 <button on:click={sendRedMsg}>Light: Red</button>
 <!-- <button on:click={sendOnMsg}>On</button> -->
+
+<h1>Piece order</h1>
+<h2>Placed pieces</h2>
+<DragList items={placedPieces} finalizeCallback={update_db_positions}></DragList>
+<h2>Unplaced pieces</h2>
+<DragList items={unplacedPieces} finalizeCallback={update_db_positions_to_null}></DragList>
