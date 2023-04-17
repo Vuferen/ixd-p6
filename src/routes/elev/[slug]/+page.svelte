@@ -6,6 +6,7 @@
 	import ExerciseAllComplete from '$lib/Exercise/ExerciseAllComplete.svelte';
 	import { serialHandler } from '$lib/serial-handler.ts';
   	import { onMount } from 'svelte';
+	import { getAssignmentsFromCode } from '$lib/Exercise/assignmentTools.js';
 
 
 	/** @type {import('./$types').PageData} */  
@@ -15,51 +16,8 @@
 	let exerciseData = [];
 
 	onMount(async () => {
-		let {data: assignments} = await data.supabase.rpc('get_assignments_from_code', { param_code: data.code });
-		await Promise.all(assignments.map(async element => {
-			let {data: answer} = await data.supabase.rpc('get_answer', { param_assignment_id: element.assignment_id });
-			let text_answer = convertAnswerToText(answer);
-			exerciseData = [...exerciseData, {
-				id: element.assignment_id,
-				exercise: element.assignment_text, 
-				hint: element.assignment_hint, 
-				explanation: element.assignment_explanation, 
-				answer: text_answer,
-				isSelected: false}
-			];
-		}));
-		exerciseData = exerciseData.sort(compareID);
-		
+		exerciseData = await getAssignmentsFromCode(data.supabase, data.code);
 	});
-
-	function compareID(a, b) {
-		if (a.id < b.id) {
-			return -1;
-		}
-		if (a.id > b.id) {
-			return 1;
-		}
-		return 0;
-	}
-
-	function convertAnswerToText(answer) {
-		let text = "";
-		let positions = [];
-		for (let i = answer.length-1; i >= 0; i--) {
-			const piece = answer[i];
-			if (i == answer.length-1) {
-				text += piece.piece_name;
-				positions.push(piece.piece_position);
-			} else if (positions.includes(piece.piece_position)) {
-				text += "/" + piece.piece_name;
-			} else {
-				text += " -> " + piece.piece_name;
-				positions.push(piece.piece_position);
-			}
-			
-		}
-		return text;
-	}
 
 	async function connectPort() {
 		await serialHandler.init();

@@ -39,7 +39,7 @@
 <Layout title="Klasseliste ({data.session.user.email})" data={data} showLogOutButton={true}>
 	<div slot="body" class="body">
 		{#each classrooms as classroom}
-			<ClassroomBox bind:name={classroom.name} code={classroom.code} onupdate={updateClassroom(data.session, data.supabase, classroom)}/>
+			<ClassroomBox bind:name={classroom.name} code={classroom.code} id={classroom.id} onupdate={updateClassroom(data.session, data.supabase, classroom)}/>
 		{/each}
 	</div>
 
