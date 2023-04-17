@@ -8,19 +8,25 @@
 <progress max={max} value={progress}></progress>
 
 <style>
-	progress{
+	progress { 
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+
 		width: 100%;
 		height: 20px;
 		border: 1px solid grey;
-		background-color: var(--background);
 		/* box-shadow: var(--shadow); */
 		border-radius: var(--border-radius);
-
-		-webkit-appearance: none;
-		-moz-appearance: none;
-   		appearance: none;
+		overflow: hidden;
 	}
-	progress::-webkit-progress-value, progress::-moz-progress-bar {
-		background-color: var(--green-1);
+	progress, progress[value]::-webkit-progress-bar, progress::-webkit-progress-bar{
+		background-color: var(--background);
+	}
+	progress::-webkit-progress-value {
+		background: var(--green-1);
+	}
+	progress::-moz-progress-bar {
+		background: var(--green-1);
 	}
 </style>

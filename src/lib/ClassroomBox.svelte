@@ -1,13 +1,18 @@
 <script>
+	import { goto } from '$app/navigation';
+	import Button from '$lib/Button.svelte';
 	export let name = "";
 	export let code = "";
-	export let onclick;
+	export let id = "";
+	// export let onclick;
 	export let onupdate;
+	
 </script>
 
-<div class="classroom" onclick={onclick}>
+<div class="classroom">
 	<input type="text" bind:value={name} on:submit={onupdate}>
 	<span>Kode: {code}</span>
+	<Button type="secondary" color="blue2" href="underviser/klasse/{id}" >Se opgaver</Button>
 </div>
 
 <!-- <button class="classroom" on:click={onclick} disabled={disable}>
@@ -23,11 +28,12 @@
 		font-size: 3rem;
 		text-align: left;
 		padding: 0.2em 0.4em;
-		height: 100px;
+		height: 150px;
 		display: flex;
 		flex-direction: column;
 		width: auto;
 		border-radius: var(--border-radius);
+		box-shadow: var(--shadow);
 	}
 	input{
 		font-size: 3rem;
@@ -37,5 +43,6 @@
 	}
 	span {
 		font-size: 1.8rem;
+		margin-bottom: 15px;
 	}
 </style>

@@ -5,9 +5,11 @@
   	import ProgressBar from "../ProgressBar.svelte";
   	import "iconify-icon";
 
+	export let assignmentData;
 	export let data;
 	export let exerciseIndex = 0;
 	export let onNextExercise;
+	export let serialHandler = null;
 
 	let states = {
 		start: 0,
@@ -18,25 +20,42 @@
 	};
 
 	let state = states.start;
-	let isSecondAttempt = false;
+	let attempts = 0;
 
 	// This function should be changed to actually evaluate the state of the board
-	function evaluateExercise() {
-		if (state == states.hint) {
+	async function evaluateExercise() {
+		attempts++;
+		let isCorrect = await checkAnswer(data.supabase);
+		if (isCorrect) {
 			state = states.success;
-		}
-		else if (isSecondAttempt) {
+			sendRGBMsg(0,255,0);
+		} else if (attempts >= 3) {
 			state = states.nearSuccess;
-		} else {
-			state++;
-			isSecondAttempt = true;
+			sendRGBMsg(255,255,0);
+		}
+		else {
+			state = states.mistake;
+			sendRGBMsg(255,0,0);
 		}
 	}
 
 	function goToNextExercise() {
 		state = states.start;
-		isSecondAttempt = false;
+		attempts = 0;
+		sendOffMsg();
 		onNextExercise();
+	}
+
+	async function checkAnswer(supabase) {
+		let {data: answer} = await supabase.rpc('check_answer', { param_assignment_id: assignmentData[exerciseIndex].id });
+		return answer;
+	}
+
+	async function sendRGBMsg(r,g,b) {
+		serialHandler.write(`4:${r},${g},${b}\n`);
+	}
+	async function sendOffMsg() {
+		serialHandler.write("0\n");
 	}
 
 </script>
@@ -44,21 +63,21 @@
 {#if state == states.start}
 	<Layout title="I opgaven skal i:" useBoxTitle=true>
 		<Box slot="body" color="green2">
-			<span class="center">{data[exerciseIndex].exercise}</span>
+			<span class="center">{assignmentData[exerciseIndex].exercise}</span>
 		</Box>
 		<Button slot="bottom" type="secondary" color="green1" onclick={evaluateExercise}>Aflæs bræt</Button>
 	</Layout>
 {:else if state == states.mistake}
 	<Layout title="I er der næsten!">
 		<div slot="body" class="mistake-body">
-			<Button slot="bottom" type="primary" color="green1" onclick={() => state = states.hint}>Hjælp til opgaven</Button>
-			<Button slot="bottom" type="secondary" color="green2" onclick={() => state = states.start}>Prøv igen uden hjælp</Button>
+			<Button slot="bottom" type="primary" color="green1" onclick={() => {state = states.hint; sendOffMsg();}}>Hjælp til opgaven</Button>
+			<Button slot="bottom" type="secondary" color="green2" onclick={() => {state = states.start; sendOffMsg();}}>Prøv igen uden hjælp</Button>
 		</div>
 	</Layout>
 {:else if state == states.hint}
 	<Layout title="Hint!">
 		<Box slot="body" color="blue1">
-			<span class="center">{data[exerciseIndex].hint}</span>
+			<span class="center">{assignmentData[exerciseIndex].hint}</span>
 		</Box>
 		<Button slot="bottom" type="secondary" color="green1" onclick={evaluateExercise}>Aflæs bræt</Button>
 	</Layout>
@@ -66,10 +85,10 @@
 	<Layout title="Godt klaret!">
 		<div slot="body" class="box-and-progress">
 			<Box color="blue1">
-				<span class="center">{data[exerciseIndex].explanation}</span>
+				<span class="center">{assignmentData[exerciseIndex].explanation}</span>
 			</Box>
 			<div class="progress-bar-container">
-				<ProgressBar max={data.length} progress={exerciseIndex+1}/>
+				<ProgressBar max={assignmentData.length} progress={exerciseIndex+1}/>
 			</div>
 		</div>
 		<Button slot="bottom" type="primary" color="green1" icon="mdi:chevron-right-circle" onclick={goToNextExercise}>Næste opgave</Button>
@@ -79,10 +98,11 @@
 		<div slot="body" class="box-and-progress">
 			<Box color="blue1">
 				<h2>Rækkefølgen skulle have været:</h2>
-				<span class="center">{data[exerciseIndex].explanation}</span>
+				<p class="center">{assignmentData[exerciseIndex].answer}</p>
+				<span class="center">{assignmentData[exerciseIndex].explanation}</span>
 			</Box>
 			<div class="progress-bar-container">
-				<ProgressBar max={data.length} progress={exerciseIndex+1}/>
+				<ProgressBar max={assignmentData.length} progress={exerciseIndex+1}/>
 			</div>
 		</div>
 		<Button slot="bottom" type="primary" color="green1" icon="mdi:chevron-right-circle" onclick={goToNextExercise}>Næste opgave</Button>

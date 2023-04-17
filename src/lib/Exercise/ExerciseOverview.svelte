@@ -6,9 +6,11 @@
 
 	export let data;
 	export let onStart;
+	export let onConnect;
 </script>
 
 <Layout title="Dagens opgaver">
+	<Button slot="top" type="secondary" color="blue2" onclick={onConnect}>Tilslut bræt</Button>
 		<Box slot="body">
 			<ol >
 				{#each data as exercise}

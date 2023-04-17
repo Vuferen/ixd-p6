@@ -24,6 +24,8 @@
 	<Button type="secondary" color="blue2" onclick={() => logout(data)}>Log ud</Button>
 {/if}
 
+<slot name="top"/>
+
 <main>
 	{#if useBoxTitle}
 		<Box color={titleBoxColor}><h1 class="box-title">{title}</h1></Box>
