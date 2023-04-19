@@ -47,6 +47,10 @@
 	}
 
 	async function checkAnswer(supabase) {
+		await supabase.rpc('save_log', { 
+			param_assignment_id: assignmentData[exerciseIndex].id, 
+			param_code: data.code, 
+			param_answer: assignmentData[exerciseIndex].answer});
 		let {data: answer} = await supabase.rpc('check_answer', { param_assignment_id: assignmentData[exerciseIndex].id });
 		return answer;
 	}
