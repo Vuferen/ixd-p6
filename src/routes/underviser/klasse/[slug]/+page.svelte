@@ -24,6 +24,7 @@
 			return;
 		}
 		isGenerating = true;
+		exerciseData = [];
 
 		let previousAssignmentData = `
 		Eleverne har førhen fået følgende opgaver:
@@ -87,21 +88,8 @@
 			const chunkValue = decoder.decode(value);
 
 			lastMessage = lastMessage + chunkValue;
+			exerciseData = splitGPTTextIntoAssignments(lastMessage);
 		}
-
-		// const response = await fetch('/api/chatgpt', {
-		// 	method: 'POST',
-		// 	body: JSON.stringify(message),
-		// 	headers: {
-		// 		'content-type': 'application/json'
-		// 	}
-		// });
-
-		// console.log(response);
-		// if (response.status == 200) {
-		// 	let res = await response.json();
-		// 	console.log(res);
-		// }
 
 		exerciseData = splitGPTTextIntoAssignments(lastMessage);
 		isExerciseDataChanged = true;
@@ -176,13 +164,26 @@
 	<div slot="body">
 		<Box>
 			<ExerciseList bind:data={exerciseData} />
+			{#if isGenerating}
+				<span style="margin-top: {exerciseData.length ? 30 : 0}px" class="status">Generer opgaver...</span>
+			{/if}
+			<!-- {#if isGenerating && exerciseData.length == 0}
+				<span class="status">Generer første opgave</span>
+			{:else if isGenerating && exerciseData.length == 1}
+				<span class="status">Generer anden opgave</span>
+			{:else if isGenerating && exerciseData.length == 2}
+				<span class="status">Generer tredje opgave</span>
+			{:else if isGenerating}
+				<span class="status">Færdiggører sidste opgave</span>
+			{/if} -->
+
 		</Box>
 		<Button color="purple1" onclick={generateAssignments}
 			>Genere nye opgaver</Button
 		>
-		{#if isGenerating}
+		<!-- {#if isGenerating}
 			<span>Generer opgaver...</span>
-		{/if}
+		{/if} -->
 	</div>
 	<Button
 		slot="bottom"
@@ -202,5 +203,9 @@
 	}
 	span {
 		font-size: 2rem;
+	}
+	.status{
+		align-self: center;
+		font-weight: bold;
 	}
 </style>
