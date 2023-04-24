@@ -3,7 +3,7 @@ import {
 	ParsedEvent,
 	ReconnectInterval,
   } from 'eventsource-parser'
-  
+  import { OPENAI_API_KEY } from "$env/static/private";
   export type ChatGPTAgent = 'user' | 'system' | 'assistant'
   
   export interface ChatGPTMessage {
@@ -33,7 +33,7 @@ import {
   
 	const requestHeaders: Record<string, string> = {
 	  'Content-Type': 'application/json',
-	  Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ''}`,
+	  Authorization: `Bearer ${OPENAI_API_KEY ?? ''}`,
 	}
   
 	if (process.env.OPENAI_API_ORG) {
