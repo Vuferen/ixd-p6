@@ -19,6 +19,9 @@
 	async function sendGreenMsg() {
 		serialHandler.write("2\n");
 	}
+	async function sendYellowMsg() {
+		sendRGBMsg(255,200,0);
+	}
 	async function sendRedMsg() {
 		serialHandler.write("3\n");
 	}
@@ -109,6 +112,7 @@
 <button on:click={connectPort}>Connect to arduino</button><br><br>
 <button on:click={sendOffMsg}>Light: Off</button><br>
 <button on:click={sendGreenMsg}>Light: Green</button><br>
+<button on:click={sendYellowMsg}>Light: Yellow</button><br>
 <button on:click={sendRedMsg}>Light: Red</button><br>
 <button on:click={sendRainbowMsg}>Light: Rainbow</button><br>
 <!-- <button on:click={sendOnMsg}>On</button> -->

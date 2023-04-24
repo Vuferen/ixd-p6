@@ -31,11 +31,11 @@
 			sendRGBMsg(0,255,0);
 		} else if (attempts >= 3) {
 			state = states.nearSuccess;
-			sendRGBMsg(255,255,0);
+			sendRGBMsg(255,0,0);
 		}
 		else {
 			state = states.mistake;
-			sendRGBMsg(255,0,0);
+			sendRGBMsg(255,230,0);
 		}
 	}
 
