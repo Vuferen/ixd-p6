@@ -1,6 +1,6 @@
 import { json } from "@sveltejs/kit";
 import { Configuration, OpenAIApi } from "openai";
-import { OPENAI_API_KEY } from "$env/static/public";
+import { OPENAI_API_KEY } from "$env/static/private";
 
 const configuration = new Configuration({
 	apiKey: OPENAI_API_KEY
@@ -19,7 +19,6 @@ async function generate(messages){
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ request }) {
-	console.log(request);
 	const messages = await request.json();
 
 	return json(await generate(messages));

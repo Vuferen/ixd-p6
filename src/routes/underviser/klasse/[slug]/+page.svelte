@@ -38,7 +38,7 @@
 			Forklaring: …
 		`}];
 
-		const response = await fetch('/api/chatgpt', {
+		const response = await fetch('/theapi/chatgpt', {
 			method: 'POST',
 			body: JSON.stringify(message),
 			headers: {
@@ -47,11 +47,13 @@
     	});
 
 		console.log(response);
+		if (response.status == 200) {
+			let res = await response.json();
+			console.log(res);
+			exerciseData = splitGPTTextIntoAssignments(res[1].content);
+			isExerciseDataChanged = true;
+		}
 
-    	let res = await response.json();
-		console.log(res);
-		exerciseData = splitGPTTextIntoAssignments(res[1].content);
-		isExerciseDataChanged = true;
 		isGenerating = false;
   	}
 
