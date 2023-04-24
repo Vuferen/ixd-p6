@@ -39,7 +39,7 @@
 <Layout title="Klasseliste" data={data} showLogOutButton={true}>
 	<div slot="body" class="body">
 		{#each classrooms as classroom}
-			<ClassroomBox bind:name={classroom.name} code={classroom.code} id={classroom.id} onsave={updateClassroom(data.supabase, classroom)}/>
+			<ClassroomBox bind:name={classroom.name} code={classroom.id} id={classroom.id} onsave={updateClassroom(data.supabase, classroom)}/>
 		{/each}
 	</div>
 

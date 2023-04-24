@@ -6,7 +6,7 @@
 	import ExerciseAllComplete from '$lib/Exercise/ExerciseAllComplete.svelte';
 	import { serialHandler } from '$lib/serial-handler.ts';
   	import { onMount } from 'svelte';
-	import { getAssignmentsFromCode } from '$lib/Exercise/assignmentTools.js';
+	import { getAssignmentsFromClassroomId, getAssignmentsFromCode } from '$lib/Exercise/assignmentTools.js';
 
 
 	/** @type {import('./$types').PageData} */  
@@ -16,7 +16,7 @@
 	let exerciseData = [];
 
 	onMount(async () => {
-		exerciseData = await getAssignmentsFromCode(data.supabase, data.code);
+		exerciseData = await getAssignmentsFromClassroomId(data.supabase, data.code);
 	});
 
 	async function connectPort() {
