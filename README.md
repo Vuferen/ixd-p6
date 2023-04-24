@@ -1,22 +1,27 @@
-# create-svelte
+# P6
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+**DO NOT COMMIT DIRECTLY TO THE MASTER BRANCH!** The master branch is automatically build and hosted on a server, so make sure to do a pull request instead or use the experimental branch.
+
+### Setup
+Clone the project to your local machine and run:
+```
+npm install
+```
+
+Please note that the database and openai api only work if you add the following keys in a ```.env``` file in the root directory:
+```
+PUBLIC_SUPABASE_URL=""
+PUBLIC_SUPABASE_ANON_KEY=""
+OPENAI_API_KEY=""
+OPENAI_ORGANIZATION_ID=""
+```
+
+### Run it
+To host the project locally, run:
 
 ```bash
 npm run dev
@@ -25,14 +30,3 @@ npm run dev
 npm run dev -- --open
 ```
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
