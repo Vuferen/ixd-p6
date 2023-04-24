@@ -9,7 +9,7 @@
 	export let onConnect;
 </script>
 
-<Layout title="Dagens opgaver" showBackgroundImg={true}>
+<Layout title="Dagens opgaver" showBackgroundImg={true} backgroundImg="globe">
 	<Button slot="top" type="secondary" color="blue2" onclick={onConnect}>Tilslut bræt</Button>
 		<Box slot="body">
 			<ol >
@@ -25,5 +25,8 @@
 	ol{
 		line-height: 4rem;
 		margin: 1em 0;
+		gap: 30px;
+		display: flex;
+		flex-direction: column;
 	}
 </style>

@@ -1,9 +1,10 @@
 <script>
 	// Skal have en lille og stor version (spørgsmål, svar, hint, beskrivelse)
 	export let color = "blue1";
+	export let useMinHeight = false;
 </script>
 
-<div class="{color}">
+<div class="{color} {useMinHeight ? 'use-min-height' : ''}">
 	<slot/>
 </div>
 
@@ -21,5 +22,9 @@
 	}
 	.green2{
 		background-color: var(--green-2);
+	}
+	.use-min-height{
+		min-height: 200px;
+		justify-content: space-evenly;
 	}
 </style>

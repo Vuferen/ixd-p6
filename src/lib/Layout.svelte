@@ -1,31 +1,35 @@
 <script>
 	import Button from "$lib/Button.svelte";
-  	import Box from "$lib/Box.svelte";
-  	import { goto } from "$app/navigation";
+	import Box from "$lib/Box.svelte";
+	import { goto } from "$app/navigation";
 	export let title = "Velkommen";
 	export let useBoxTitle = false;
 	export let titleBoxColor = "blue1";
 	export let showBackButton = false;
 	export let showLogOutButton = false;
 	export let showBackgroundImg = false;
+	export let backgroundImg = "default";
 	export let data;
 
 	async function logout(data) {
 		await data.supabase.auth.signOut(data.session);
 		window.location.href = "/";
 	}
-
 </script>
 
 {#if showBackButton}
-	<Button type="secondary" color="blue2" onclick={() => history.back()}>Tilbage</Button>
+	<Button type="secondary" color="blue2" onclick={() => history.back()}
+		>Tilbage</Button
+	>
 {/if}
 
 {#if showLogOutButton && data.session}
-	<Button type="secondary" color="blue2" onclick={() => logout(data)}>Log ud</Button>
+	<Button type="secondary" color="blue2" onclick={() => logout(data)}
+		>Log ud</Button
+	>
 {/if}
 
-<slot name="top"/>
+<slot name="top" />
 
 <main>
 	{#if useBoxTitle}
@@ -33,15 +37,69 @@
 	{:else}
 		<h1>{title}</h1>
 	{/if}
-	<slot name="body"/>
+	<slot name="body" />
 </main>
 <div class="bottom">
-	<slot name="bottom"/>
+	<slot name="bottom" />
 </div>
 
 {#if showBackgroundImg}
-	<img class="img-bottom-left" src="/illustrations/Træer.png" alt="" width="33%">
-	<img class="img-lamp" src="/illustrations/Pære.png" alt="" width="23%">
+	{#if backgroundImg == "default"}
+		<img
+			class="img img-bottom-left"
+			src="/illustrations/Træer.png"
+			alt=""
+			width="33%"
+		/>
+		<img
+			class="img img-lamp"
+			src="/illustrations/Pære.png"
+			alt=""
+			width="23%"
+		/>
+	{:else if backgroundImg == "globe"}
+		<img
+			class="img img-bottom-left"
+			src="/illustrations/Verden.png"
+			alt=""
+			width="33%"
+		/>
+	{:else if backgroundImg == "coal"}
+		<img
+			class="img img-bottom-left"
+			src="/illustrations/Kul.png"
+			alt=""
+			width="33%"
+		/>
+	{:else if backgroundImg == "train"}
+		<img
+			class="img img-train"
+			src="/illustrations/Tog.png"
+			alt=""
+			width="100%"
+		/>
+	{:else if backgroundImg == "train-2"}
+		<img
+			class="img img-train"
+			src="/illustrations/Tog-2.png"
+			alt=""
+			width="70%"
+		/>
+	{:else if backgroundImg == "lamp"}
+		<img
+			class="img img-lamp-2"
+			src="/illustrations/Pære.png"
+			alt=""
+			width="23%"
+		/>
+	{:else if backgroundImg == "pie-chart"}
+		<img
+			class="img img-pie-chart"
+			src="/illustrations/Cirkeldiagram.png"
+			alt=""
+			width="23%"
+		/>
+	{/if}
 {/if}
 
 <style>
@@ -60,22 +118,34 @@
 		font-weight: normal;
 		font-size: 3rem;
 	}
-	.bottom{
+	.bottom {
 		display: flex;
 		justify-content: right;
 		margin-top: auto;
 	}
-	.img-bottom-left {
+	.img {
 		position: absolute;
-		left: 100px;
-		bottom: 70px;
 		z-index: -1;
 	}
-	.img-lamp{
-		position: absolute;
+	.img-bottom-left {
+		left: 100px;
+		bottom: 70px;
+	}
+	.img-lamp {
 		top: 70px;
 		right: 250px;
-		z-index: -1;
 		transform: rotateZ(20deg);
+	}
+	.img-train {
+		left: 0;
+		bottom: 70px;
+	}
+	.img-lamp-2 {
+		top: 70px;
+		right: 250px;
+	}
+	.img-pie-chart{
+		top: 270px;
+		right: 100px;
 	}
 </style>
