@@ -38,7 +38,7 @@
 			Forklaring: …
 		`}];
 
-		const response = await fetch('/theapi/chatgpt', {
+		const response = await fetch('/api/chatgpt', {
 			method: 'POST',
 			body: JSON.stringify(message),
 			headers: {
