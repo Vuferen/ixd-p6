@@ -6,7 +6,7 @@
 	export let onFinish;
 </script>
 
-<Layout title="Godt klaret!">
+<Layout title="Godt klaret!" showBackgroundImg={true}>
 	<div slot="body" class="box-and-progress">
 		<Box color="blue1">
 			<span class="center">I har nu lavet alle opgaverne for i dag</span>

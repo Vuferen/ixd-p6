@@ -23,7 +23,7 @@
 		<TextInput type="password" name="password" bind:value={$form.password} {...$constraints.password} bind:error={$errors.password}>Kodeord</TextInput>
 		<TextInput type="password" name="confirmPassword" bind:value={$form.confirmPassword} {...$constraints.confirmPassword} bind:error={$errors.confirmPassword}>Bekræft Kodeord</TextInput>
 		<div class="center">
-			<Button type="primary" icon="mdi:chevron-right-circle">Opret bruger</Button>
+			<Button type="primary" color="purple1" icon="mdi:chevron-right-circle">Opret bruger</Button>
 		</div>
 	</form>
 </Layout>

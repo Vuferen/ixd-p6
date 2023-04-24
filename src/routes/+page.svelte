@@ -21,12 +21,12 @@
 
 </script>
 
-<Layout title="Velkommen">
+<Layout title="Velkommen" showBackgroundImg={true}>
 	<div slot="body">
 		<TextInput bind:value={code}>Indtast klassens kode</TextInput>
 		<Button type="primary" color="green1" icon="mdi:chevron-right-circle" href="elev/{code}">Log ind</Button>
 	</div>
-	<Button slot="bottom" type="secondary" color="green2" href="{teacherNavigation()}">Log ind som lærer</Button>
+	<Button slot="bottom" type="secondary" color="purple1" href="{teacherNavigation()}">Log ind som lærer</Button>
 </Layout>
 
 <style>

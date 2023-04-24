@@ -23,14 +23,14 @@
 		<TextInput type="email" name="email" bind:value={$form.email} {...$constraints.email} bind:error={$errors.email}>Email</TextInput>
 		<TextInput type="password" name="password" bind:value={$form.password} {...$constraints.password} bind:error={$errors.password}>Kodeord</TextInput>
 		<div class="center">
-			<Button type="primary" icon="mdi:chevron-right-circle">Log ind</Button>
+			<Button type="primary" color="purple1" icon="mdi:chevron-right-circle">Log ind</Button>
 		</div>
 	</form>
 
 	<Button
 		slot="bottom"
 		type="primary"
-		color="green2"
+		color="purple2"
 		icon="material-symbols:add-circle" href="underviser/registrer">Opret bruger</Button
 	>
 </Layout>

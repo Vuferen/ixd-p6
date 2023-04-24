@@ -7,6 +7,7 @@
 	export let titleBoxColor = "blue1";
 	export let showBackButton = false;
 	export let showLogOutButton = false;
+	export let showBackgroundImg = false;
 	export let data;
 
 	async function logout(data) {
@@ -38,9 +39,10 @@
 	<slot name="bottom"/>
 </div>
 
-<img class="img-bottom-left" src="/illustrations/Træer.png" alt="" width="33%">
-<img class="img-lamp" src="/illustrations/Pære.png" alt="" width="23%">
-
+{#if showBackgroundImg}
+	<img class="img-bottom-left" src="/illustrations/Træer.png" alt="" width="33%">
+	<img class="img-lamp" src="/illustrations/Pære.png" alt="" width="23%">
+{/if}
 
 <style>
 	main {

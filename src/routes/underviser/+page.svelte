@@ -48,7 +48,7 @@
 		<Button
 		slot="bottom"
 		type="primary"
-		color="green2"
+		color="purple2"
 		icon="material-symbols:add-circle"
 		onclick={() => newClassroom(data.session, data.supabase)}>Tilføj</Button
 	>
@@ -59,7 +59,7 @@
 <style>
 	.body {
 		display: grid;
-		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
 		gap: 3em;
 		/* padding: 0 15%; */
 	}

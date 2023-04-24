@@ -59,6 +59,12 @@
 	.green2{
 		background-color: var(--green-2);
 	}
+	.purple1{
+		background-color: var(--purple-1);
+	}
+	.purple2{
+		background-color: var(--purple-2);
+	}
 	.blue2{
 		background-color: var(--blue-2);
 	}

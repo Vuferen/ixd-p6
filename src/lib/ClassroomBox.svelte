@@ -35,7 +35,7 @@
 
 <style>
 	.classroom{
-		background-color: var(--green-1);
+		background-color: var(--purple-1);
 		font-size: 3rem;
 		text-align: left;
 		padding: 0.2em 0.4em;

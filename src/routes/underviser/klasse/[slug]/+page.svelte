@@ -122,12 +122,12 @@
 		<Box>
 			<ExerciseList bind:data={exerciseData}/>
 		</Box>
-		<Button onclick={generateAssignments}>Genere nye opgaver</Button>
+		<Button color="purple1" onclick={generateAssignments}>Genere nye opgaver</Button>
 		{#if isGenerating}
 			<span>Generer opgaver...</span>
 		{/if}
 	</div>
-	<Button slot="bottom" type="secondary" onclick={() => saveAssignments(data.supabase, data.id)} href="underviser">Godkend</Button>
+	<Button slot="bottom" color="purple1" type="secondary" onclick={() => saveAssignments(data.supabase, data.id)} href="underviser">Godkend</Button>
 </Layout>
 
 <style>

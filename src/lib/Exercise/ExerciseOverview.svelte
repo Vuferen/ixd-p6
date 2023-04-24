@@ -9,7 +9,7 @@
 	export let onConnect;
 </script>
 
-<Layout title="Dagens opgaver">
+<Layout title="Dagens opgaver" showBackgroundImg={true}>
 	<Button slot="top" type="secondary" color="blue2" onclick={onConnect}>Tilslut bræt</Button>
 		<Box slot="body">
 			<ol >

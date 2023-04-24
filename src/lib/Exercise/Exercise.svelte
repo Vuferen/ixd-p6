@@ -65,28 +65,28 @@
 </script>
 
 {#if state == states.start}
-	<Layout title="I opgaven skal i:" useBoxTitle=true>
+	<Layout title="I opgaven skal i:" useBoxTitle=true showBackgroundImg={true}>
 		<Box slot="body" color="green2">
 			<span class="center">{assignmentData[exerciseIndex].exercise}</span>
 		</Box>
 		<Button slot="bottom" type="secondary" color="green1" onclick={evaluateExercise}>Aflæs bræt</Button>
 	</Layout>
 {:else if state == states.mistake}
-	<Layout title="I er der næsten!">
+	<Layout title="I er der næsten!" showBackgroundImg={true}>
 		<div slot="body" class="mistake-body">
 			<Button slot="bottom" type="primary" color="green1" onclick={() => {state = states.hint; sendOffMsg();}}>Hjælp til opgaven</Button>
 			<Button slot="bottom" type="secondary" color="green2" onclick={() => {state = states.start; sendOffMsg();}}>Prøv igen uden hjælp</Button>
 		</div>
 	</Layout>
 {:else if state == states.hint}
-	<Layout title="Hint!">
+	<Layout title="Hint!" showBackgroundImg={true}>
 		<Box slot="body" color="blue1">
 			<span class="center">{assignmentData[exerciseIndex].hint}</span>
 		</Box>
 		<Button slot="bottom" type="secondary" color="green1" onclick={evaluateExercise}>Aflæs bræt</Button>
 	</Layout>
 {:else if state == states.success}
-	<Layout title="Godt klaret!">
+	<Layout title="Godt klaret!" showBackgroundImg={true}>
 		<div slot="body" class="box-and-progress">
 			<Box color="blue1">
 				<span class="center">{assignmentData[exerciseIndex].explanation}</span>
@@ -98,7 +98,7 @@
 		<Button slot="bottom" type="primary" color="green1" icon="mdi:chevron-right-circle" onclick={goToNextExercise}>Næste opgave</Button>
 	</Layout>
 {:else if state == states.nearSuccess}
-	<Layout title="Tæt på!">
+	<Layout title="Tæt på!" showBackgroundImg={true}>
 		<div slot="body" class="box-and-progress">
 			<Box color="blue1">
 				<h2>Rækkefølgen skulle have været:</h2>
