@@ -11,36 +11,22 @@
 		console.log(arduino_input);
 	}
 	async function sendOffMsg() {
-		// serialHandler.write("0\n");
-		channel.send({
-			type: 'broadcast',
-			event: 'feedback',
-			payload: { feedback: false },
-		})
+		serialHandler.write("0\n");
 	}
 	async function sendOnMsg() {
-		// serialHandler.write("1\n");
-		channel.send({
-			type: 'broadcast',
-			event: 'feedback',
-			payload: { feedback: true },
-		})
+		serialHandler.write("1\n");
 	}
 	async function sendGreenMsg() {
-		// serialHandler.write("1\n");
-		channel.send({
-			type: 'broadcast',
-			event: 'feedback',
-			payload: { feedback: true, correct: true },
-		})
+		serialHandler.write("2\n");
 	}
 	async function sendRedMsg() {
-		// serialHandler.write("1\n");
-		channel.send({
-			type: 'broadcast',
-			event: 'feedback',
-			payload: { feedback: true, correct: false },
-		})
+		serialHandler.write("3\n");
+	}
+	async function sendRGBMsg(r,g,b) {
+		serialHandler.write(`4:${r},${g},${b}\n`);
+	}
+	async function sendRainbowMsg() {
+		serialHandler.write("5\n");
 	}
 	
 
@@ -120,9 +106,11 @@
 
 <!-- <button on:click={connectPort}>Connect to arduino</button> -->
 <!-- <button on:click={readPort}>Read arduino</button> -->
-<button on:click={sendOffMsg}>Light: Off</button>
-<button on:click={sendGreenMsg}>Light: Green</button>
-<button on:click={sendRedMsg}>Light: Red</button>
+<button on:click={connectPort}>Connect to arduino</button><br><br>
+<button on:click={sendOffMsg}>Light: Off</button><br>
+<button on:click={sendGreenMsg}>Light: Green</button><br>
+<button on:click={sendRedMsg}>Light: Red</button><br>
+<button on:click={sendRainbowMsg}>Light: Rainbow</button><br>
 <!-- <button on:click={sendOnMsg}>On</button> -->
 
 <h1>Piece order</h1>

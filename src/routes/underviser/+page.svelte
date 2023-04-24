@@ -27,19 +27,19 @@
 		classrooms = tableData;
 	}
 
-	async function updateClassroom(session, supabase, classroom) {
+	async function updateClassroom(supabase, classroom) {
 		const { data, error } = await supabase
 		.from('classrooms')
 		.update({name: classroom.name})
-		.eq('id', classroom.id);
+		.eq('id', classroom.id).select();
 	}
 
 </script>
 
-<Layout title="Klasseliste ({data.session.user.email})" data={data} showLogOutButton={true}>
+<Layout title="Klasseliste" data={data} showLogOutButton={true}>
 	<div slot="body" class="body">
 		{#each classrooms as classroom}
-			<ClassroomBox bind:name={classroom.name} code={classroom.code} id={classroom.id} onupdate={updateClassroom(data.session, data.supabase, classroom)}/>
+			<ClassroomBox bind:name={classroom.name} code={classroom.code} id={classroom.id} onsave={updateClassroom(data.supabase, classroom)}/>
 		{/each}
 	</div>
 
