@@ -65,6 +65,7 @@ export async function POST({ request }) {
   console.log(stream);
   return new Response(stream, {
     headers: {
+      'cache-control': 'no-cache',
       'content-type': 'text/event-stream',
     }
   });
