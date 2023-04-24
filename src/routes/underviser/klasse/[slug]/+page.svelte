@@ -24,10 +24,25 @@
 			return;
 		}
 		isGenerating = true;
+
+		let previousAssignmentData = `
+		Eleverne har førhen fået følgende opgaver:
+
+		Opgave: Varmekraftværket er ikke samlet og derfor får huset ikke noget strøm. Brug de store brikker til at samle varmekraftsværket, så beboerne kan få strøm igen. Husk at huset skal bruges som slut brik!
+		Hint: Generatoren kommer efter Turbinen.
+
+		Opgave: Varmekraftværket er nu samlet, men der mangler stadig noget. Brug de små brikker til at få brændstoffet lavet om til strøm og ud til huset.
+		Hint: De små brikker skal sidde mellem de store brikker.
+
+		Opgave: Prøv at skifte den brændstof brik I har valgt ud med en anden brændstof brik og se hvad der sker.
+		Hint: Tjek om I har husket at skifte jeres brændstof brik ud, uden at ændre på de andre brikker.
+
+		`
+
 		let message = [
 			{
 				role: "user",
-				content: `
+				content: previousAssignmentData + `
 			Givet følgende store brikker: Hus, Generator, Turbine, Kedel, Kul, Naturgas, Olie, Solpaneler, Vindmølle, Gearkasse, Transformator, Inverter, Elektrisk kredsløb, Batteri, Dæmning.
 			Givet følgende små brikker som beskriver processen mellem to store brikker: Ild (Forbrænding), Damp, Rotationsenergi, Elmast
 
