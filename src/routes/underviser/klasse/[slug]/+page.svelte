@@ -46,6 +46,8 @@
 			}
     	});
 
+		console.log(response);
+
     	let res = await response.json();
 		console.log(res);
 		exerciseData = splitGPTTextIntoAssignments(res[1].content);

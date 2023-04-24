@@ -19,6 +19,7 @@ async function generate(messages){
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ request }) {
+	console.log(request);
 	const messages = await request.json();
 
 	return json(await generate(messages));
