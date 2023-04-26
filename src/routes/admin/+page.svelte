@@ -20,7 +20,10 @@
 		serialHandler.write("2\n");
 	}
 	async function sendYellowMsg() {
-		sendRGBMsg(255,200,0);
+		sendRGBMsg(255/3,200/3,0);
+	}
+	async function sendWhiteMsg() {
+		sendRGBMsg(80,80,55);
 	}
 	async function sendRedMsg() {
 		serialHandler.write("3\n");
@@ -75,12 +78,14 @@
 					.from('pieces')
 					.update({ position: i })
 					.eq('id', piece.id);
+				piece.position = i;
 			}
 		}
 	}
 
 	async function update_db_positions_to_null(pieces) {
-		pieces.forEach(async piece => {
+		for (let i = 0; i < pieces.length; i++) {
+			const piece = pieces[i];
 			if (piece.position != null) {
 				const { error } = await data.supabase
 				.from('pieces')
@@ -88,7 +93,7 @@
 				.eq('id', piece.id);
 				piece.position = null;
 			}
-		});
+		}
 	}
 
 
@@ -114,6 +119,7 @@
 <button on:click={sendGreenMsg}>Light: Green</button><br>
 <button on:click={sendYellowMsg}>Light: Yellow</button><br>
 <button on:click={sendRedMsg}>Light: Red</button><br>
+<button on:click={sendWhiteMsg}>Light: White</button><br>
 <button on:click={sendRainbowMsg}>Light: Rainbow</button><br>
 <!-- <button on:click={sendOnMsg}>On</button> -->
 

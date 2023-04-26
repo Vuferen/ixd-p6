@@ -35,7 +35,7 @@
 		}
 		else {
 			state = states.mistake;
-			sendRGBMsg(255,230,0);
+			sendRGBMsg(255/3,200/3,0);
 		}
 	}
 

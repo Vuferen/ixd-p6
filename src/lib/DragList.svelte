@@ -4,12 +4,13 @@
 	export let items = [];
 	export let finalizeCallback;
 
-	function handleDndConsider(e) {
+	async function handleDndConsider(e) {
     	items = e.detail.items;
     }
-    function handleDndFinalize(e) {
+    async function handleDndFinalize(e) {
         items = e.detail.items;
-		finalizeCallback(items);
+		await finalizeCallback(items);
+		console.table(items);
     }
 </script>
 
