@@ -165,7 +165,7 @@
 		<Box>
 			<ExerciseList bind:data={exerciseData} />
 			{#if isGenerating}
-				<span style="margin-top: {exerciseData.length ? 30 : 0}px" class="status">Generer opgaver...</span>
+				<span style="margin-top: {exerciseData.length ? 30 : 0}px" class="status">Genererer opgaver...</span>
 			{/if}
 			<!-- {#if isGenerating && exerciseData.length == 0}
 				<span class="status">Generer første opgave</span>
@@ -179,7 +179,7 @@
 
 		</Box>
 		<Button color="purple1" onclick={generateAssignments}
-			>Genere nye opgaver</Button
+			>Generer nye opgaver</Button
 		>
 		<!-- {#if isGenerating}
 			<span>Generer opgaver...</span>
